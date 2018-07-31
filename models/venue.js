@@ -3,10 +3,12 @@ module.exports = (sequelize, DataTypes) => {
   var Venue = sequelize.define('Venue', {
     name: DataTypes.STRING,
     location: DataTypes.STRING,
-    capacity: DataTypes.INTEGER
+    capacity: DataTypes.INTEGER,
+    gigId : DataTypes.INTEGER
   }, {});
   Venue.associate = function(models) {
-    // associations can be defined here
+    let Gig = models.Gig
+    Venue.belongsTo(Gig,{foreignKey:'gigId'})
   };
   return Venue;
 };
