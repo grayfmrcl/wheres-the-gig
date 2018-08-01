@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <center>
+        <a href="/add/gig">ADD GIG</a>
+    </center>
+    <table style="width:70%" border=1>
+        <tr>
+
+            <th>
+                <center>Name</center>
+            </th>
+            <th>
+                <center>Venue</center>
+            </th>
+            <th>
+                <center>Artist</center>
+            </th>
+            <th>
+                <center>Schedule</center>
+            </th>
+            <th>
+                <center>Price</center>
+            </th>
+            <th>
+                <center>Action</center>
+            </th>
+
+            <% gigs.forEach(gig =>{ %>
+        </tr>
+        <tr>
+
+            <td>
+                <center>
+                    <%= gig.name %>
+                    
+                </center>
+
+            </td>
+
+            <td>
+                <center>
+                        <%= gig.Venue.name %>
+
+                </center>
+            </td>
+            <td>
+                <center>
+                        <%= gig.Artist.name %>
+
+                </center>
+            </td>
+            <td>
+                <center>
+                    <%= gig.schedule %>
+
+                </center>
+            </td>
+            <td>
+                <center>
+                    <%= gig.price %>
+
+                </center>
+            </td>
+
+            <td>
+                <center>
+                    <a href="/edit/gig/<%=gig.id %>">EDIT</a> |
+                    <a href="/delete/gig/<%=gig.id %>">DELETE</a>
+                </center>
+            </td>
+            <% }) %>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Gig</title>
+</head>
+
+<body>
+
+    <h4>Edit Gig</h4>
+    
+ 
+    <form action="/edit/gig/<%=id%>" method="post" form="gig">
+        Name :
+        <input type="text" name="name" value=<%=gig.name%>>
+        <br> Schedule :
+        <input type="date" name="date">
+        <br> Price :
+        <input type="text" name="price" value=<%=gig.price%>>
+        <br> artist :
+        <select name="artistId">
+            <% artists.forEach(artist =>{ %>
+                <option <%= `${gig.Artist.id == artist.id ? "selected" : ""}`%> value=<%=artist.id%>><%= artist.name %></option>
+            <% }) %>                  
+        </select>
+        venue :
+        <select name="venueId">
+            <% venues.forEach(venue => { %>
+                <option <%= `${gig.Venue.id == venue.id ? "selected" : ""}`%> value=<%=venue.id%>><%= venue.name %></option>
+                   <% }) %>
+           </option>
+        </select>
+        <button type="submit"> Update </button> <br>
+        
+                   
+       
+</body>
+
+</html>
