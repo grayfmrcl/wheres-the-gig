@@ -76,7 +76,6 @@ app.get('/edit/gig/:id', (req, res) => {
                     .then(venues => {
                         let id = req.params.id
                         res.render('editGig',{gig,id,artists,venues})
-                        //res.send(gig)
                     })
                     .catch(err => res.send(err))
                      })
@@ -85,7 +84,7 @@ app.get('/edit/gig/:id', (req, res) => {
         .catch(err => res.send(err))
 })
 app.post('/edit/gig/:id', (req, res) => {
-    //res.send(req.body)
+    
     Gig.update({
         name : req.body.name,
         schedule : req.body.schedule,
@@ -106,6 +105,7 @@ app.get('/delete/gig/:id', (req, res) => {
         .then( () => res.redirect('/showAllGigs'))
         .catch(err => res.send(err))        
     })
+    .catch(err => res.send(err))        
 })
 
 // ======================================  ARTIST
@@ -131,6 +131,7 @@ app.get('/edit/artist/:id', (req, res) => {
         let artistId = req.params.id
         res.render('editArtist',{artists,id:artistId})
     })
+    .catch(err => res.send(err))        
 })
 app.post('/edit/artist/:id', (req, res) => {
     Artist.update({
@@ -160,6 +161,7 @@ app.get('/delete/artist/:id', (req, res) => {
         .then( () => res.redirect('/showAllArtists'))
         .catch(err => res.send(err))        
     })
+    .catch(err => res.send(err))        
 })
 
 app.listen(3001, () => console.log('running on port 3000'))
