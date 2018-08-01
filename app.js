@@ -1,17 +1,32 @@
 const express = require('express')
+const bodyParser = require('body-parser')
+const session = require('express-session')
+
+const routes = require('./routes')
+
 const app = express()
+const port = 8080
+
 const model = require('./models')
 const Gig = model.Gig
 const Artist = model.Artist
 const Venue = model.Venue
-const bodyParser = require('body-parser')
+
+
+app.set('view engine', 'ejs')
+
+app.use(express.static(__dirname + '/views'))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:true}))
-app.set('views', __dirname + '/views'); // general config
-app.set('view engine', 'ejs');
-app.get('/', (req, res) => {
-    res.send('test')
-})
+app.use(session({
+    secret: 'z0X9c1V8a2S7d3F6q4W5eR',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}))
+
+// app.use('/', routes)
+
 
 //================================== SHOW VenueS,ARTISTS
 app.get('/showAllVenues', (req, res) => {
@@ -164,4 +179,10 @@ app.get('/delete/artist/:id', (req, res) => {
     .catch(err => res.send(err))        
 })
 
-app.listen(3001, () => console.log('running on port 3000'))
+app.use(function (req, res, next) {
+    res.status(404).send('404 not found');
+});
+
+app.listen(port, () => {
+    console.log(`server is running on port ${port}`)
+})
