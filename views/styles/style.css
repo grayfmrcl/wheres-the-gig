@@ -11,3 +11,11 @@ header {
 section {
     padding: 150px 0;
 }
+
+section.content {
+    padding: 100px 100px 100px 100px
+}
+
+.validation-errors {
+    padding-top: 50px;
+}

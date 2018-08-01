@@ -1,13 +1,15 @@
 const routes = require('express').Router()
-const artist = require('./artist')
-const venue = require('./venue')
+const artists = require('./artists')
+const venues = require('./venues')
+const auths = require('./auths')
 
 routes.get('/', (req, res) => {
     res.render('index')
 })
 
-routes.use('/venues', venue)
-routes.use('/artists', artist)
+routes.use('/venues', venues)
+routes.use('/artists', artists)
+routes.use('/auth', auths)
 
 module.exports = routes
 
