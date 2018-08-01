@@ -1,10 +1,19 @@
+const models = require('../../models')
+const Artist = models.Artist
 
 const get = (req, res) => {
-    res.send('display create artist form')
+    
+    res.render('artists/create.ejs')
 }
 
 const post = (req, res) => {
-    res.send('artist added.')
+    
+    Artist.create({
+        name : req.body.name,
+        genre : req.body.genre
+    })
+    .then(() =>res.redirect('/artists'))  
+    .catch(err => res.send(err))
 }
 
 module.exports = { get, post }

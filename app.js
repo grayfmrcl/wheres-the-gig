@@ -25,8 +25,7 @@ app.use(session({
     cookie: { secure: false }
 }))
 
-// app.use('/', routes)
-
+app.use('/', routes)
 
 //================================== SHOW VenueS,ARTISTS
 app.get('/showAllVenues', (req, res) => {
@@ -127,57 +126,19 @@ app.get('/delete/gig/:id', (req, res) => {
 // ====================================== 
 // ====================================== ADD ARTIST
 
-app.get('/add/artist', (req, res) => {
-    res.render('createArtist')
-})
-app.post('/add/artist', (req, res) => {
-    Artist.create({
-        name : req.body.name,
-        genre : req.body.genre
-    })
-    .then(() =>res.redirect('/showAllArtists'))  
-    .catch(err => res.send(err))
-})
-// ====================================== UPDATE ARTIST
+// app.get('/add/artist', (req, res) => {
+//     res.render('createArtist')
+// })
+// app.post('/add/artist', (req, res) => {
+//     Artist.create({
+//         name : req.body.name,
+//         genre : req.body.genre
+//     })
+//     .then(() =>res.redirect('/showAllArtists'))  
+//     .catch(err => res.send(err))
+// })
 
-app.get('/edit/artist/:id', (req, res) => {
-    Artist.findById(req.params.id)
-    .then(artists => {
-        let artistId = req.params.id
-        res.render('editArtist',{artists,id:artistId})
-    })
-    .catch(err => res.send(err))        
-})
-app.post('/edit/artist/:id', (req, res) => {
-    Artist.update({
-        name : req.body.name,
-        genre : req.body.genre
-    }, {where : {
-        id : req.params.id
-    }})
-    .then(() =>res.redirect('/showAllArtists'))  
-    .catch(err => res.send(err))
-})
-// ====================================== SHOW ARTIST
-app.get('/showAllArtists', (req, res) => {
-    Artist.findAll({
-            include: [{
-                model: Gig
-            }]
-        })
-        .then(artists => res.render('showArtist.ejs',{artists}))
-        .catch(err => res.send(err))
-})
-// ====================================== DELETE ARTIST
-app.get('/delete/artist/:id', (req, res) => {
-    Artist.findById(req.params.id)    
-    .then(artist => {
-        artist.destroy()
-        .then( () => res.redirect('/showAllArtists'))
-        .catch(err => res.send(err))        
-    })
-    .catch(err => res.send(err))        
-})
+
 
 app.use(function (req, res, next) {
     res.status(404).send('404 not found');
