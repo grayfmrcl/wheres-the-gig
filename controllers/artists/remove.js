@@ -1,10 +1,25 @@
+const models = require('../../models')
+const Artist = models.Artist
 
 const get = (req, res) => {
-    res.send('display remove artist form')
+    
+    Artist.findById(req.params.id)    
+    .then(artist => {
+        res.render('artists/remove.ejs',{artist})
+    })
+    .catch(err => res.send(err))        
 }
 
 const post = (req, res) => {
-    res.send('artist deleted')
+    
+    Artist.findById(req.params.id)    
+    .then(artist => {
+        artist.destroy()
+        .then( () => res.redirect('/artists'))
+        .catch(err => res.send(err))        
+    })
+    .catch(err => res.send(err))     
+    
 }
 
 module.exports = { get, post }
