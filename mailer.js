@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const fs = require('fs')
-
+let email = fs.readFileSync('./home.html','utf8')
 function mailer(userMail){
 
 let transporter = nodemailer.createTransport({
@@ -19,9 +19,9 @@ let transporter = nodemailer.createTransport({
   let HelperOptions = {
     from: '"odi" <odirobbani@gmail.com',
     to: `${userMail}`,
-    subject: 'dd',
-    text: 'wheres the gig',
-    html: '<p>Click <a href="http://localhost:3000/sessions/recover/' + "recovery_token" + '">here</a> to reset your password</p>',
+    subject: 'Wheres The Gig Ticket Transaction',
+    text: 'THANKS FOR JOIN WITH US!!!',
+    html: email,
     attachments: [{   
         filename: 'wheresthegig.jpg',
         content: fs.createReadStream('/home/khodi/Documents/hacktiv8/wheres-the-gig/wtg.png')

@@ -20,7 +20,7 @@
                 <%gigs.forEach(gig => {%>
                     <div class="row">
                         <div class="card mb-3">
-                            <img class="card-img-top" src="../../contents/images/gig-default.svg" alt="Card image cap">
+                            <img class="card-img-top" src= <%=helper(gig.Artist) %> alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="gig-name card-title">
                                     <a href="/gigs/<%=gig.id%>">

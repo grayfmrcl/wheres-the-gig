@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: `Name is required` }
       }
     },
-    genre: DataTypes.STRING
+    genre: DataTypes.STRING,
+    image : DataTypes.STRING
   }, {});
   Artist.associate = function (models) {
 

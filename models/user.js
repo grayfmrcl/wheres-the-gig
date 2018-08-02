@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     const Ticket = models.Ticket
     User.hasMany(Ticket, { foreignKey: 'customerId' })
   };
+  
   User.hook('afterCreate', (user, options) => {
     console.log('============== success sent email to user ==============')
     mailer(user.email)
