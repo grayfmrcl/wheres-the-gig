@@ -3,39 +3,34 @@ const Artist = models.Artist
 const Venue = models.Venue
 const Gig = models.Gig
 
-const get = (req, res) => {
-    
-    Artist.findAll()
-    .then(artists => {
+const createPageHandler = (req, res, validationErrors) => {
+    Promise.all([
+        Artist.findAll(),
         Venue.findAll()
-        .then(venues => {
-            let err = ['']
-            res.render('gigs/create.ejs',{artists,venues,err})
+    ])
+        .then(([artists, venues]) => {
+            res.render('gigs/create.ejs', { artists, venues, validationErrors })
         })
-        .catch(err => res.send(err))
-    })   
 }
 
+const get = (req, res) =>  createPageHandler(req, res, [])
+
 const post = (req, res) => {
-    
+
     Gig.create({
-        name : req.body.name,
-        schedule: req.body.schedule,
-        price: req.body.price,
-        artistId : req.body.artistId,
-        venueId : req.body.venueId
+        name: req.body.name,
+        schedule: req.body.schedule || null,
+        price: req.body.price || null,
+        artistId: req.body.artistId || null,
+        venueId: req.body.venueId || null
     })
-    .then(() =>res.redirect('/gigs/'))  
-    .catch(err =>{
-        if(err.name =='SequelizeValidationError'){
-            Artist.findAll()
-                .then(artists => {
-                    Venue.findAll()
-                    .then(venues => res.render('gigs/create.ejs',{artists,venues,err:err.errors}))
-                    .catch(err => res.send(err))
-    })   
-        }
-    })
+        .then(() => res.redirect('/gigs/'))
+        .catch(err => {
+            if (err.name == 'SequelizeValidationError')
+                createPageHandler(req, res, err.errors)
+            else
+                res.send(err)
+        })
 }
 
 module.exports = { get, post }

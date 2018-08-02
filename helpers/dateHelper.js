@@ -21,6 +21,21 @@ const formatFullDate = date => {
     return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`
 }
 
+const formatDateTimeLocale = date => {
+    var month = '' + (date.getMonth() + 1),
+        day = '' + date.getDate(),
+        year = date.getFullYear(),
+        hours = '' + date.getHours(),
+        minutes = '' + date.getMinutes()
+
+    month = month.padStart(2, '0')
+    day = day.padStart(2, '0')
+    hours = hours.padStart(2, '0')
+    minutes = minutes.padStart(2, '0')
+
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
 module.exports = {
-    daysDiff, daysDiffString, formatFullDate
+    daysDiff, daysDiffString, formatFullDate, formatDateTimeLocale
 }

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
             }},
     name: {type :DataTypes.STRING,
       validate : {
-      is : {args :[/[a-zA-Z-0-9]{8,}/],msg : 'invalid input name,minimum 8 character'}
+      is : {args :[/[ a-zA-Z-0-9]{8,}/],msg : 'invalid input name,minimum 8 character'}
       }},
     venueId : DataTypes.INTEGER,
     artistId : DataTypes.INTEGER

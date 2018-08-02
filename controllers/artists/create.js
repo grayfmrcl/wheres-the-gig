@@ -1,8 +1,8 @@
 const models = require('../../models')
 const Artist = models.Artist
 
-const createPageHandler = (req, res, validationError) => {
-    res.render('artists/create', { validationError })
+const createPageHandler = (req, res, validationErrors) => {
+    res.render('artists/create', { validationErrors })
 }
 
 const get = (req, res) => {
@@ -18,7 +18,7 @@ const post = (req, res) => {
         .then(() => res.redirect('/artists'))
         .catch(err => {
             if (err.name == "SequelizeValidationError")
-            createPageHandler(req, res, err.errors)
+                createPageHandler(req, res, err.errors)
             res.send(err)
         })
 }
