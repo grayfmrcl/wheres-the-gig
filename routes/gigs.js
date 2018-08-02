@@ -2,7 +2,8 @@ const gigs = require('express').Router()
 
 const controller = require('../controllers/gigs')
 
-gigs.get('/', controller.all)
+gigs.get('/', controller.all.get)
+gigs.post('/', controller.all.post)
 gigs.get('/add', controller.create.get)
 gigs.post('/add', controller.create.post)
 gigs.get('/:id/edit', controller.update.get)
