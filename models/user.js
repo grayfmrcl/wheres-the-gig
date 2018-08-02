@@ -1,4 +1,5 @@
 'use strict';
+const mailer = require('.././mailer')
 module.exports = (sequelize, DataTypes) => {
   var User = sequelize.define('User', {
     name: {
@@ -31,5 +32,9 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function (models) {
     // associations can be defined here
   };
+  User.hook('afterCreate', (user, options) => {
+    console.log('============== success sent email to user ==============')
+    mailer(user.email)
+});
   return User;
 };
