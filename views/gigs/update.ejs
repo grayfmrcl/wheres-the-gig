@@ -12,7 +12,9 @@
 
     <h4>Edit Gig</h4>
     
- 
+    <% err.forEach(errors =>{ %>
+    <li><font color="red"><%=errors.message%></font></li>
+    <%}) %>
     <form action="/gigs/edit/<%=id%>" method="post" form="gig">
         Name :
         <input type="text" name="name" value=<%=gig.name%>>

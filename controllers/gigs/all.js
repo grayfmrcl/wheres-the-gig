@@ -6,41 +6,32 @@ var Sequelize = require('sequelize');
 const Op = Sequelize.Op
 
 const get = (req, res) => {
-    Gig.findAll({
-        order : [['name','ASC']],
-        include: [{
-            model: Artist
-        }, {
-            model: Venue
-        }]
-    })
-    .then(gigs => res.render('gigs/index.ejs',{gigs}))
-    .catch(err => res.send(err))
-}
-
-const post = (req, res) => {
-    let filterCategory = req.body.filterCategory.split(' ')
-    let sortBy = req.body.sortBy
+    let filterCategory = req.query.filterCategory || ''
+  
+    let sortBy = req.query.sortBy || 'schedule'
     //res.send(filterCategory)
-    let from = req.body.from
-    //res.send(filterCategory)
+    let from = req.query.from || 'ASC'
     Gig.findAll({
         order : [[sortBy,from]],
         include: [{
             model: Artist,
             where:   {[Op.or]: [{
-                name:  {[Op.like]: `%${filterCategory[0]}%`}
+                name:  {[Op.like]: `%${filterCategory}%`}
                 },
                 {
-                genre:  {[Op.like]: `%${filterCategory[1]}%`}
+                genre:  {[Op.like]: `%${filterCategory}%`}
                 }
               ] } 
         }, {
-            model: Venue,
-            where : {name  : {[Op.like]: `%${filterCategory[3]}%` }}
+            model: Venue
         }]
     })
-    .then(gigs => res.render('gigs/index.ejs',{gigs}))
+    .then(gigs => res.render('gigs/index.ejs',{gigs, sortBy, from,filterCategory}))
+    
     .catch(err => res.send(err)) 
+}
+
+const post = (req, res) => {
+
 }
 module.exports = { get, post }

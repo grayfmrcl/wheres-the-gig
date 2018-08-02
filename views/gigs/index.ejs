@@ -15,32 +15,33 @@
     
 
      
-    <form action="/gigs/filter" method="post">
+    <form action="/gigs" method="get">
     sort by :  
     <select name="sortBy">
            
-            <option value= "schedule" >
+            <option <%=`${sortBy == "schedule" ? 'selected': ''}`%> value= "schedule" >
                 date    
             </option>
-            <option value= "price" >
+            <option <%=`${sortBy == "price" ? 'selected': ''}`%> value= "price" >
                 price    
             </option>
-            <option value= "popularity" >
+            <option <%=`${sortBy == "popularity" ? 'selected': ''}`%> value= "popularity" >
                 popularity    
             </option>        
     </select>
     <select name="from">
            
-    <option value= "ASC" >
+    <option <%=`${from == "ASC" ? 'selected': ''}`%> value= "ASC" >
         ascending    
     </option>
-    <option value= "DESC" >
+    <option <%=`${from == "DESC" ? 'selected': ''}`%> value= "DESC" >
         descending    
-    </option>      
+    </option>  
     </select>
+    
     filter by : 
-        <input type="text" name="filterCategory">
-        <input type="submit" value="filter">
+        <input type="text" name="filterCategory" value="<%=filterCategory%>">
+        <input type="submit" value="search">
     </form>
     <table style="width:70%" border=1>
         <tr>
