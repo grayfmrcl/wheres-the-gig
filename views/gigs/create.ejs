@@ -2,50 +2,56 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create Gig</title>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" href="../../contents/styles/style.css">
 </head>
 
 <body>
-    <h4>CREATE GIG</h4>
-    <% err.forEach(errors =>{ %>
-        <li><font color="red"><%=errors.message%></font></li>
-    <%}) %>
-    <form action="/gigs/add" method="post">
-        Name :
-        <input type="text" name="name">
-        <br> Schedule :
-        <input type="date" name="schedule">
-        <br> Price :
-        <input type="text" name="price">
-
-        <br> artist :
-        <select name="artistId">
-            <% artists.forEach(artist =>{ %>
-               
-                    <option value=<%=artist.id%> >
-                        <%= artist.name %>
+    <%- include('../partials/nav') %>
+    <section class="content bg-light">
+        <div class="container">
+            <div class="row">
+                <h4>Register a New Gig</h4>
+            </div>
+            <div class="row">
+                <form action="/gigs/add" method="post">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="schedule">Schedule</label>
+                        <input type="datetime-local" name="schedule" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" name="price" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="artistId">Artist</label>
+                        <select name="artistId" class="form-control">
+                        <option value="">--Choose an artist--</a>
+                            <% artists.forEach(artist =>{ %>
+                                <option value="<%=artist.id%>"><%=`${artist.name}`%></option>
                             <% }) %>
-                    </option>
-                    
-        </select>
-        venue :
-        <select name="venueId">
-            <% venues.forEach(venue => { %>
-                
-                    <option value=<%=venue.id%> >
-                            <%=venue.name%>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="venueId">Venue</label>
+                        <select name="venueId" class="form-control">
+                            <option value="">--Choose a venue--</a>
+                            <% venues.forEach(venue =>{ %>
+                                <option value="<%=venue.id%>"><%=`${venue.name}`%></option>
                             <% }) %>
-                        </option>
-                
-                
-                
-        </select>
-
-        <button type="submit"> CREATE </button>
-
+                        </select>
+                    </div>
+                    <a href="/gigs" role="button" class="btn btn-secondary">Cancel</a>
+                    <input type="submit" role="button" class="btn btn-primary" value="Register">
+                </form>
+            </div>
+            <%- include('../partials/validation')%>
+        </div>
+    </section>
 </body>
 
 </html>

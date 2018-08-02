@@ -1,9 +1,7 @@
 <div class="row validation-errors">
-    <div class="col-lg-8 mx-auto">
-        <%for (validationError of validationErrors) {%>
+    <%for (validationError of validationErrors) {%>
             <div class="alert alert-danger" role="alert">
                 <%=validationError.message%>
             </div>
         <%}%>
-    </div>
 </div>
