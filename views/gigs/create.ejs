@@ -10,6 +10,9 @@
 
 <body>
     <h4>CREATE GIG</h4>
+    <% err.forEach(errors =>{ %>
+        <li><font color="red"><%=errors.message%></font></li>
+    <%}) %>
     <form action="/gigs/add" method="post">
         Name :
         <input type="text" name="name">

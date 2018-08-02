@@ -8,11 +8,11 @@ module.exports = (req, res) => {
             model: Gig
         }]
     })
-    .then(Venues => {
-        res.send(Venues)
+    .then(venues => {
+        res.render('venues/index',{venues})
     })
     .catch(err => {
-        console.log(err)
+        res.send(err)
     })
 }
 

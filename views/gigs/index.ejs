@@ -12,6 +12,37 @@
     <center>
         <a href="/gigs/add">ADD GIG</a>
     </center>
+    
+
+     
+    <form action="/gigs" method="get">
+    sort by :  
+    <select name="sortBy">
+           
+            <option <%=`${sortBy == "schedule" ? 'selected': ''}`%> value= "schedule" >
+                date    
+            </option>
+            <option <%=`${sortBy == "price" ? 'selected': ''}`%> value= "price" >
+                price    
+            </option>
+            <option <%=`${sortBy == "popularity" ? 'selected': ''}`%> value= "popularity" >
+                popularity    
+            </option>        
+    </select>
+    <select name="from">
+           
+    <option <%=`${from == "ASC" ? 'selected': ''}`%> value= "ASC" >
+        ascending    
+    </option>
+    <option <%=`${from == "DESC" ? 'selected': ''}`%> value= "DESC" >
+        descending    
+    </option>  
+    </select>
+    
+    filter by : 
+        <input type="text" name="filterCategory" value="<%=filterCategory%>">
+        <input type="submit" value="search">
+    </form>
     <table style="width:70%" border=1>
         <tr>
 
@@ -48,13 +79,13 @@
 
             <td>
                 <center>
-                        <%= gig.Venue.name %>
+                        <%= gig.Venue== null ? 'coming soon' : gig.Venue.name %>
 
                 </center>
             </td>
             <td>
                 <center>
-                        <%= gig.Artist.name %>
+                        <%= gig.Artist == null ? 'test' : gig.Artist.name %>
 
                 </center>
             </td>
