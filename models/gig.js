@@ -12,8 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     let Venue = models.Venue
     Gig.belongsTo(Artist,{foreignKey:'artistId'})
     Gig.belongsTo(Venue,{foreignKey:'venueId'})
-    // Gig.hasMany(Artist,{foreignKey:'gigId'})
-    // Gig.hasMany(Venue,{foreignKey:'gigId'})
+
   };
   return Gig;
 };

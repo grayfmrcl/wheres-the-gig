@@ -6,16 +6,14 @@ var Sequelize = require('sequelize');
 const Op = Sequelize.Op
 
 const get = (req, res) => {
-    Gig.findAll({
-        order : [['name','ASC']],
-        include: [{
-            model: Artist
-        }, {
-            model: Venue
-        }]
+    
+    Gig.findById(req.params.id)    
+    .then(gig => {
+        gig.destroy()
+        .then( () => res.redirect('/gigs'))
+        .catch(err => res.send(err))        
     })
-    .then(gigs => res.render('gigs/index.ejs',{gigs}))
-    .catch(err => res.send(err))
+    .catch(err => res.send(err))             
 }
 
 const post = (req, res) => {
@@ -36,11 +34,12 @@ const post = (req, res) => {
                 }
               ] } 
         }, {
-            model: Venue,
-            where : {name  : {[Op.like]: `%${filterCategory[3]}%` }}
+            model: Venue
         }]
     })
     .then(gigs => res.render('gigs/index.ejs',{gigs}))
-    .catch(err => res.send(err)) 
+    .catch(err => res.send(err))
+    
 }
+
 module.exports = { get, post }
