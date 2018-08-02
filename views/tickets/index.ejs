@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head') %>
+        <link rel="stylesheet" href="../../contents/styles/style.css">
+</head>
+
+<body>
+    <%- include('../partials/nav') %>
+
+        <section class="content bg-light">
+            <div class="container">
+                <div class="row">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Days left</th>
+                            <th>Schedule</th>
+                            <th>Gig</th>
+                            <th>Artist</th>
+                            <th>Venue</th>
+                            <th>Price</th>
+                            <th>Purchase date</th>
+                        </thead>
+                        <tbody>
+                            <%tickets.forEach(ticket => {%>
+                                <tr>
+                                    <td><%-dateHelper.daysDiffString(ticket.Gig.schedule)%></td>
+                                    <td>
+                                        <%=`${ticket.Gig.schedule}`%>
+                                    </td>
+                                    <td>
+                                        <%=`${ticket.Gig.name}`%>
+                                    </td>
+                                    <td>
+                                        <%=`${ticket.Gig.Artist ? ticket.Gig.Artist.name : ''}`%>
+                                    </td>
+                                    <td>
+                                        <%=`${ticket.Gig.Venue ? ticket.Gig.Venue.name : ''}`%>
+                                    </td>
+                                    <td>
+                                        <%=`${ticket.Gig.price}`%>
+                                    </td>
+                                    <td>
+                                        <%=`${ticket.createdAt}`%>
+                                    </td>
+                                </tr>
+                                <%})%>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+</body>
+
+</html>
