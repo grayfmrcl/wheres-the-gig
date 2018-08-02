@@ -2,14 +2,18 @@
 
 module.exports = (sequelize, DataTypes) => {
   var Artist = sequelize.define('Artist', {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: `Name is required` }
+      }
+    },
     genre: DataTypes.STRING
   }, {});
-  Artist.associate = function(models) {
+  Artist.associate = function (models) {
 
     let Gig = models.Gig
-    //Artist.belongsTo(Gig,{foreignKey:'gigId'})
-    Artist.hasMany(Gig,{foreignKey:'artistId'})
+    Artist.hasMany(Gig, { foreignKey: 'artistId' })
   };
 
   return Artist;

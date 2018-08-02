@@ -9,7 +9,7 @@ const port = 8080
 
 app.set('view engine', 'ejs')
 
-app.use(express.static(__dirname + '/views'))
+app.use(express.static(__dirname))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(session({
@@ -19,6 +19,7 @@ app.use(session({
     cookie: { secure: false }
 }))
 app.use('/', routes)
+
 app.use(function (req, res, next) {
     res.status(404).send('404 not found');
 });

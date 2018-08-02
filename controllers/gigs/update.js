@@ -1,71 +1,55 @@
 const model = require('../../models')
+
 const Artist = model.Artist
 const Gig = model.Gig
 const Venue = model.Venue
 
-const get = (req, res) => {
-    
-Gig.findById(req.params.id,{
-    include : [{
-        model : Artist
-    },{
-        model : Venue
-    }]
-})
-    .then((gig) => {
-        Artist.findAll()
-            .then(artists => {
-                Venue.findAll()
-                .then(venues => {
-                    let id = req.params.id
-                    let err =['']
-                    res.render('gigs/update',{gig,id,artists,venues,err})
-                })
-                .catch(err => res.send(err))
-                    })
-            .catch(err => res.send(err))
+const findGigPromise = (id) => {
+    return new Promise((resolve, reject) => {
+        Gig
+            .findById(id, { include: [Artist, Venue] })
+            .then(gig => {
+                if (gig)
+                    resolve(gig)
+                else
+                    reject('Gig not found')
             })
-    .catch(err => res.send(err))
+    })
+}
+
+const editPageHandler = (req, res, validationErrors) => {
+    findGigPromise(req.params.id)
+        .then(gig => {
+            Promise.all([
+                Artist.findAll(),
+                Venue.findAll()
+            ])
+                .then(([artists, venues]) => {
+                    res.render('gigs/update', { gig, artists, venues, validationErrors })
+                })
+        })
+}
+
+const get = (req, res) => {
+    editPageHandler(req, res, [])
 }
 
 const post = (req, res) => {
     Gig.update({
-        name : req.body.name,
-        schedule : req.body.schedule,
-        price : req.body.price,
-        venueId : req.body.venueId,
-        artistId : req.body.artistId
-    },{
-        where :{ id : req.params.id}
-    })
-        .then(() => {res.redirect('/gigs')})
+        name: req.body.name,
+        schedule: req.body.schedule || null,
+        price: req.body.price || null,
+        venueId: req.body.venueId || null,
+        artistId: req.body.artistId || null
+    }, {
+            where: { id: req.params.id }
+        })
+        .then(() => { res.redirect('/gigs') })
         .catch(err => {
-            if(err.name = 'SequelizeValidationError'){
-                Gig.findById(req.params.id,{
-                    include : [{
-                        model : Artist
-                    },{
-                        model : Venue
-                    }]
-                })
-                    .then((gig) => {
-                        Artist.findAll()
-                            .then(artists => {
-                                Venue.findAll()
-                                .then(venues => {
-                                    let id = req.params.id
-                                    res.render('gigs/update',{gig,id,artists,venues,err :  err.errors})
-                                })
-                                .catch(err => res.send(err))
-                                    })
-                            .catch(err => res.send(err))
-                            })
-                    .catch(err => res.send(err))
-            }
-            else{
+            if (err.name = 'SequelizeValidationError')
+                editPageHandler(req, res, err.errors)
+            else
                 res.send(err)
-            }
-            
         })
 }
 

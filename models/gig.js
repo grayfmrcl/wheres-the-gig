@@ -8,17 +8,19 @@ module.exports = (sequelize, DataTypes) => {
             }},
     name: {type :DataTypes.STRING,
       validate : {
-      is : {args :[/[a-zA-Z-0-9]{8,}/],msg : 'invalid input name,minimum 8 character'}
+      is : {args :[/[ a-zA-Z-0-9]{8,}/],msg : 'invalid input name,minimum 8 character'}
       }},
     venueId : DataTypes.INTEGER,
     artistId : DataTypes.INTEGER
   }, {});
-  Gig.associate = function(models) {
+  Gig.associate = function (models) {
     let Artist = models.Artist
     let Venue = models.Venue
-    Gig.belongsTo(Artist,{foreignKey:'artistId'})
-    Gig.belongsTo(Venue,{foreignKey:'venueId'})
-
+    let Ticket = models.Ticket
+    
+    Gig.belongsTo(Artist, { foreignKey: 'artistId' })
+    Gig.belongsTo(Venue, { foreignKey: 'venueId' })
+    Gig.hasMany(Ticket, { foreignKey: 'gigId' })
   };
   return Gig;
 };

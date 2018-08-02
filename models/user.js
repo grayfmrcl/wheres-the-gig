@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     passwordRaw: {
       type: DataTypes.VIRTUAL,
       validate: {
-        is: { 
-          args: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/, 
+        is: {
+          args: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
           msg: `Password must be at least 8 characters or longer, contains at least 1 lowercase letter, 1 uppercase letter, and 1 number.`
         }
       }
@@ -30,7 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     isAdmin: DataTypes.BOOLEAN,
   }, {});
   User.associate = function (models) {
-    // associations can be defined here
+    const Ticket = models.Ticket
+    User.hasMany(Ticket, { foreignKey: 'customerId' })
   };
   User.hook('afterCreate', (user, options) => {
     console.log('============== success sent email to user ==============')
