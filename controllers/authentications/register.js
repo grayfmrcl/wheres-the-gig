@@ -16,7 +16,7 @@ const post = (req, res, next) => {
     User
         .create({ name, email, passwordRaw, password })
         .then(user => {
-            res.redirect('auth/login')
+            res.redirect('/auth/login')
         })
         .catch(err => {
             res.render('auth/register', { validationErrors: err.errors })

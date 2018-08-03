@@ -6,29 +6,31 @@ var Sequelize = require('sequelize');
 const Op = Sequelize.Op
 
 const get = (req, res) => {
-    let filterCategory = req.query.filterCategory || ''
-  
+    let search = req.query.search || ''
+
     let sortBy = req.query.sortBy || 'schedule'
-    //res.send(filterCategory)
-    let from = req.query.from || 'ASC'
+    let sortDir = req.query.sortDir || 'asc'
+
     Gig.findAll({
-        order : [[sortBy,from]],
+        order: [[sortBy, sortDir]],
         include: [{
             model: Artist,
-            where:   {[Op.or]: [{
-                name:  {[Op.like]: `%${filterCategory}%`}
+            where: {
+                [Op.or]: [{
+                    name: { [Op.iLike]: `%${search}%` }
                 },
                 {
-                genre:  {[Op.like]: `%${filterCategory}%`}
+                    genre: { [Op.iLike]: `%${search}%` }
                 }
-              ] } 
+                ]
+            }
         }, {
             model: Venue
         }]
     })
-    .then(gigs => res.render('gigs/index.ejs',{gigs, sortBy, from,filterCategory}))
-    
-    .catch(err => res.send(err)) 
+        .then(gigs => res.render('gigs/index.ejs', { gigs, sortBy, sortDir, search }))
+
+        .catch(err => res.send(err))
 }
 
 const post = (req, res) => {
