@@ -1,28 +1,44 @@
 const model = require('../../models')
+
 const Artist = model.Artist
 
-const get = (req, res) => {
-
-    Artist.findById(req.params.id)
-        .then(artists => {
-            let artistId = req.params.id
-            res.render('artists/update', { artists, id: artistId })
-        })
-        .catch(err => res.send(err))
+const findArtistPromise = (id) => {
+    return new Promise((resolve, reject) => {
+        Artist
+            .findById(id)
+            .then(artist => {
+                if (artist)
+                    resolve(artist)
+                else
+                    reject('Aritst not found')
+            })
+    })
 }
 
-const post = (req, res) => {
-
-    Artist.update({
-        name: req.body.name,
-        genre: req.body.genre
-    }, {
-        where: {
-            id: req.params.id
-        }
+const editPageHandler = (req, res, validationErrors) => {
+    findArtistPromise(req.params.id)
+        .then(artist => {
+            res.render('artists/update', { artist, validationErrors })
         })
-        .then(() => res.redirect('/artists'))
-        .catch(err => res.send(err))
+}
+
+const get = (req, res) => editPageHandler(req, res, [])
+
+const post = (req, res) => {
+    findArtistPromise(req.params.id)
+        .then(artist => {
+            artist.name = req.body.name || ''
+            artist.genre = req.body.genre || ''
+
+            artist.save()
+                .then(changes => res.redirect('/artists'))
+                .catch(err => {
+                    if(err.name == "SequelizeValidationError")
+                        editPageHandler(req, res, err.errors)
+                    else
+                        res.send(err)
+                })
+        })
 }
 
 module.exports = { get, post }

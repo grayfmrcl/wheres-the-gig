@@ -1,14 +1,14 @@
 const gigs = require('express').Router()
 
 const controller = require('../controllers/gigs')
+const authorize = require('./authorize')
 
 gigs.get('/', controller.all.get)
-gigs.post('/', controller.all.post)
-gigs.get('/add', controller.create.get)
-gigs.post('/add', controller.create.post)
-gigs.get('/:id/edit', controller.update.get)
-gigs.post('/:id/edit', controller.update.post)
-gigs.get('/:id/delete', controller.remove.get)
-gigs.post('/:id/delete', controller.remove.post)
+gigs.get('/add', authorize, controller.create.get)
+gigs.post('/add', authorize, controller.create.post)
+gigs.get('/:id/edit', authorize, controller.update.get)
+gigs.post('/:id/edit', authorize, controller.update.post)
+gigs.get('/:id/delete', authorize, controller.remove.get)
+gigs.post('/:id/delete', authorize, controller.remove.post)
 
 module.exports = gigs

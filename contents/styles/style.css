@@ -19,3 +19,13 @@ section.content {
 .validation-errors {
     padding-top: 50px;
 }
+
+.gig-name {
+    font-size:25px;
+}
+
+.gig-artist {
+    padding-left: 10px;
+    color:grey;
+    font-size:20px;
+}

@@ -1,3 +1,5 @@
+const path = require('path')
+
 const daysDiff = (first, second) => {
     let _first = first || new Date
     let _second = second || new Date
@@ -36,13 +38,12 @@ const formatDateTimeLocale = date => {
     return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
-const imageHelper = (Artist) => {
+const imageHelper = (artist) => {
+    let imagePath = path.join('../../contents/images/', artist.image)
     
-    let img = `../../${Artist.image}`
-    
-    return Artist ? img : '' 
+    return artist ? imagePath : '' 
 }
 
 module.exports = {
-    daysDiff, daysDiffString, formatFullDate, formatDateTimeLocale,imageHelper
+    daysDiff, daysDiffString, formatFullDate, formatDateTimeLocale, imageHelper
 }

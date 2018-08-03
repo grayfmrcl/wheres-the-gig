@@ -2,26 +2,37 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add Artist</title>
+    <%- include('../partials/head') %>
+        <link rel="stylesheet" href="../../contents/styles/style.css">
 </head>
 
 <body>
+    <%- include('../partials/nav') %>
 
-    <h4>Update Artist</h4>
-    
- 
-    <form action="/artists/edit/<%=id%>" method="post" form="artist">
-        Name :
-        <input type="text" name="name">
-        <br> Genre :
-        <input type="text" name="genre">
-        <button type="submit"> Update </button> <br>
-        
-                   
-       
+        <section class="content bg-light">
+            <div class="container">
+                <div class="row">
+                    <h4>Edit Artists</h4>
+                </div>
+                <br>
+                <div class="row">
+                    <form action="/artists/<%=artist.id%>/edit" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" class="form-control" value="<%=artist.name%>">
+                        </div>
+                        <div class="form-group">
+                            <label for="genre">Genre</label>
+                            <input type="text" name="genre" class="form-control" value="<%=artist.genre%>">
+                        </div>
+                        <a href="/artists" class="btn btn-secondary" role="button">Cancel</a>
+                        <input type="submit" role="button" class="btn btn-success" value="Edit">
+                    </form>
+                </div>
+                <%-include('../partials/validation')%>
+            </div>
+        </section>
+
 </body>
 
 </html>

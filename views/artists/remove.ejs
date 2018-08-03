@@ -2,36 +2,35 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add Artist</title>
+    <%- include('../partials/head') %>
+        <link rel="stylesheet" href="../../contents/styles/style.css">
 </head>
 
 <body>
-    <h4>Delete Artist</h4>
-
-    <form action="/artists/delete/<%=artist.id%>" method="post">
-        <dl>
-            <dt>
-                Name :
-            </dt>
-            <dd>
-                <%= artist.name %>
-            </dd>
-            <dt>
-                Genre :
-            </dt>
-            <dd>
-                <%= artist.genre %>
-            </dd>
-        </dl>
-
-       
-            <input type="submit" value="delete">
-            </form>
-            
-
+    <%- include('../partials/nav') %>
+        <section class="content bg-light">
+            <div class="container">
+                <div class="row">
+                    <h4>Delete Artist</h4>
+                </div>
+                <br>
+                <div class="row">
+                    <form action="/artists/<%=artist.id%>/delete" method="post">
+                        <dl class="dl-horizontal">
+                            <dt>Name</dt>
+                            <dd>
+                                <%=`${artist.name}`%>
+                            </dd>
+                            <dt>Genre</dt>
+                            <dd>
+                                <%=`${artist.genre}`%>
+                            </dd>
+                        </dl>
+                        <input type="submit" role="btn" class="btn btn-danger" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </section>
 </body>
 
 </html>

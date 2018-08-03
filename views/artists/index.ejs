@@ -2,55 +2,52 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" href="../../contents/styles/style.css">
 </head>
 
 <body>
-    <center>
-        <a href="/artists/add">ADD ARTIST</a>
-    </center>
-    <table style="width:70%" border=1>
-        <tr>
-
-            <th>
-                <center>Name</center>
-            </th>
-            <th>
-                <center>Genre</center>
-            </th>
-            <th>
-                <center>Action</center>
-            </th>
-
-            <% artists.forEach(artist =>{ %>
-        </tr>
-        <tr>
-
-            <td>
-                <center>
-                    <%= artist.name %>
-                </center>
-
-            </td>
-
-            <td>
-                <center>
-                    <%= artist.genre %>
-
-                </center>
-            </td>
-
-            <td>
-                <center>
-                    <a href="/artists/edit/<%=artist.id %>">EDIT</a> |
-                    <a href="/artists/delete/<%=artist.id %>">DELETE</a>
-                </center>
-            </td>
-            <% }) %>
-    </table>
+    <%- include('../partials/nav') %>
+    <section class="content bg-light">
+            <div class="container">
+                <div class="row">
+                    <h4>Artists</h4>
+                </div>
+                <br>
+                <div class="row">
+                    <a href="artists/add" role="button" class="btn btn-primary">+ Add Artist</a>
+                </div>
+                <br>
+                <div class="row">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>No.</th>
+                            <th>Name</th>
+                            <th>Genre</th>
+                            <th>Action</th>
+                        </thead>
+                        <tbody>
+                            <%let i = 0%>
+                            <%artists.forEach(artist => {%>
+                                <tr>
+                                    <td><%=`${++i}`%></td>
+                                    <td>
+                                        <%=`${artist.name}`%>
+                                    </td>
+                                    <td>
+                                        <%=`${artist.genre}`%>
+                                    </td>
+                                    <td>
+                                        <a href="/artists/<%=artist.id%>/edit" role="button" class="btn btn-success">Edit</a>&emsp;
+                                        <a href="/artists/<%=artist.id%>/delete" role="button" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                                <%})%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
 </body>
 
 </html>

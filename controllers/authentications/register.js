@@ -16,10 +16,10 @@ const post = (req, res, next) => {
     User
         .create({ name, email, passwordRaw, password })
         .then(user => {
-            res.redirect('auth/login')
+            res.redirect('/auth/login')
         })
         .catch(err => {
-            if(err.name == "SequelizeValidationError")
+            if(err.name == "SequelizeValidationError" || err.name == "SequelizeUniqueConstraintError")
                 res.render('auth/register', { validationErrors: err.errors })
             else
                 res.send(err)
