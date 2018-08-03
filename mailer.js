@@ -24,7 +24,7 @@ let transporter = nodemailer.createTransport({
     html: email,
     attachments: [{   
         filename: 'wheresthegig.jpg',
-        content: fs.createReadStream('/home/khodi/Documents/hacktiv8/wheres-the-gig/wtg.png')
+        //content: fs.createReadStream('/home/khodi/Documents/hacktiv8/wheres-the-gig/wtg.png')
     }]
   };
   

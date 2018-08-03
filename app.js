@@ -7,6 +7,8 @@ const routes = require('./routes')
 const app = express()
 const port = 8080
 
+global.__basedir = __dirname;
+
 app.set('view engine', 'ejs')
 
 app.use(express.static(__dirname))

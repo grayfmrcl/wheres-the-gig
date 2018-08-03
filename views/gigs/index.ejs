@@ -41,28 +41,20 @@
                 <%gigs.forEach(gig => {%>
                     <div class="row">
                         <div class="card mb-3">
-                            <img class="card-img-top" src= <%=helper(gig.Artist) %> alt="Card image cap">
+                            <img class="card-img-top" src= <%=dateHelper.imageHelper(gig.Artist) %> alt="Card image cap">
                             <div class="card-body">
-                                <h5 class="gig-name card-title">
-                                    <a href="/gigs/<%=gig.id%>">
-                                        <%-dateHelper.formatFullDate(gig.schedule)%>
-                                    </a>
-                                </h5>
-                                <p class="gig-artist card-text">
-                                    <a href="/artists/<%=gig.artistId%>">
-                                        <%=`${gig.Artist ? gig.Artist.name : ''}`%>
-                                    </a>
+                                <p class="card-title">
+                                    <span class="gig-name"><%=`${gig.name}`%></span>
+                                    <span class="gig-artist"> <%=`${gig.Artist ? gig.Artist.name : ''}`%></span>
                                 </p>
                                 <p class="gig-venue card-text">
-                                    <a href="/venues/<%=gig.venueId%>">
-                                        <%=`${gig.Venue ? gig.Venue.name : ''}`%>
-                                    </a>
+                                    <%=`${gig.Venue ? gig.Venue.name : ''} - ${dateHelper.formatFullDate(gig.schedule)}`%>
                                 </p>
                                 <p>
                                     <form action="/tickets" method="POST">
                                         <div class="form-group">
                                             <input type="hidden" value="<%=gig.id%>" name="gigId" class="form-control">
-                                            <input type="submit" role="button" class="btn btn-info" value="Buy ticket">
+                                            <input type="submit" role="button" class="btn btn-info" value="<%=`Rp ${gig.price} - Buy Ticket`%>">
                                         </div>
                                     </form>
                                     <%if(currentUser && currentUser.isAdmin) {%>

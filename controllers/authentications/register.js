@@ -19,7 +19,7 @@ const post = (req, res, next) => {
             res.redirect('/auth/login')
         })
         .catch(err => {
-            if(err.name == "SequelizeValidationError")
+            if(err.name == "SequelizeValidationError" || err.name == "SequelizeUniqueConstraintError")
                 res.render('auth/register', { validationErrors: err.errors })
             else
                 res.send(err)
