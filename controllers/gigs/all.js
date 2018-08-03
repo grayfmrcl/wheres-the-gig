@@ -1,8 +1,11 @@
 const model = require('../../models')
+const Sequelize = require('sequelize');
+const helper = require('../../helpers/dateHelper')
+
 const Artist = model.Artist
 const Venue = model.Venue
 const Gig = model.Gig
-var Sequelize = require('sequelize');
+
 const Op = Sequelize.Op
 
 const get = (req, res) => {
@@ -26,8 +29,7 @@ const get = (req, res) => {
             model: Venue
         }]
     })
-    .then(gigs => res.render('gigs/index.ejs',{gigs, sortBy, from,filterCategory}))
-    
+    .then(gigs => {res.render('gigs/index.ejs',{gigs, sortBy, from,filterCategory,helper : helper.imageHelper})})
     .catch(err => res.send(err)) 
 }
 

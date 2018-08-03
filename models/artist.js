@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   var Artist = sequelize.define('Artist', {
     name: {
@@ -7,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: `Name is required` }
       }
     },
-    genre: DataTypes.STRING
+    genre: DataTypes.STRING,
+    image : DataTypes.STRING
   }, {});
   Artist.associate = function (models) {
 
@@ -15,21 +17,5 @@ module.exports = (sequelize, DataTypes) => {
     Artist.hasMany(Gig, { foreignKey: 'artistId' })
   };
 
-  
-// Artist.hook('beforeDelete', (Artist, options) => {
-//       let Gig = sequelize.models.Gig
-//       Gig.findAll({
-//         where : { 
-//           artistId : Artist.id
-//         }
-//       })
-//       .then(gigs => {
-//           gigs.update({
-//             artistId : 1
-//           })
-//           .then( test => console.log(test))
-//       })
-      
-// });
   return Artist;
 };

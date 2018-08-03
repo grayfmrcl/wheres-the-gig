@@ -19,7 +19,10 @@ const post = (req, res, next) => {
             res.redirect('auth/login')
         })
         .catch(err => {
-            res.render('auth/register', { validationErrors: err.errors })
+            if(err.name == "SequelizeValidationError")
+                res.render('auth/register', { validationErrors: err.errors })
+            else
+                res.send(err)
         })
 }
 
