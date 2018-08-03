@@ -36,6 +36,13 @@ const formatDateTimeLocale = date => {
     return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
+const imageHelper = (Artist) => {
+    
+    let img = `../../${Artist.image}`
+    
+    return Artist ? img : '' 
+}
+
 module.exports = {
-    daysDiff, daysDiffString, formatFullDate, formatDateTimeLocale
+    daysDiff, daysDiffString, formatFullDate, formatDateTimeLocale,imageHelper
 }

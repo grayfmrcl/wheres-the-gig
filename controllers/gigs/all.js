@@ -1,8 +1,11 @@
 const model = require('../../models')
+const Sequelize = require('sequelize');
+const helper = require('../../helpers/dateHelper')
+
 const Artist = model.Artist
 const Venue = model.Venue
 const Gig = model.Gig
-var Sequelize = require('sequelize');
+
 const Op = Sequelize.Op
 
 const get = (req, res) => {

@@ -37,41 +37,39 @@
                         <a href="/gigs/add" role="button" class="btn btn-primary btn-lg"> + Register New Gig</a>
                     </div>
                     <br>
-                    <%}%>
-                        <%gigs.forEach(gig => {%>
-                            <div class="row">
-                            <div class="col-sm-6">
-                            <div class="card mb-3">
-                                <img class="card-img-top" src="../../contents/images/gig-default.svg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="gig-name card-title">
-                                        <a href="/gigs/<%=gig.id%>">
-                                            <%-dateHelper.formatFullDate(gig.schedule)%>
-                                        </a>
-                                    </h5>
-                                    <p class="gig-artist card-text">
-                                        <a href="/artists/<%=gig.artistId%>">
-                                            <%=`${gig.Artist ? gig.Artist.name : ''}`%>
-                                        </a>
-                                    </p>
-                                    <p class="gig-venue card-text">
-                                        <a href="/venues/<%=gig.venueId%>">
-                                            <%=`${gig.Venue ? gig.Venue.name : ''}`%>
-                                        </a>
-                                    </p>
-                                    <p>
-                                        <form action="/tickets" method="POST">
-                                            <div class="form-group">
-                                                <input type="hidden" value="<%=gig.id%>" name="gigId" class="form-control">
-                                                <input type="submit" role="button" class="btn btn-info" value="Buy ticket">
-                                            </div>
-                                        </form>
-                                        <%if(currentUser && currentUser.isAdmin) {%>
-                                            <a href="/gigs/<%=gig.id%>/edit" role="button" class="btn btn-success">Edit</a>
-                                            <a href="/gigs/<%=gig.id%>/delete" role="button" class="btn btn-danger">Delete</a>
-                                            <%}%>
-                                    </p>
-                                </div>
+                <%}%>
+                <%gigs.forEach(gig => {%>
+                    <div class="row">
+                        <div class="card mb-3">
+                            <img class="card-img-top" src= <%=helper(gig.Artist) %> alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="gig-name card-title">
+                                    <a href="/gigs/<%=gig.id%>">
+                                        <%-dateHelper.formatFullDate(gig.schedule)%>
+                                    </a>
+                                </h5>
+                                <p class="gig-artist card-text">
+                                    <a href="/artists/<%=gig.artistId%>">
+                                        <%=`${gig.Artist ? gig.Artist.name : ''}`%>
+                                    </a>
+                                </p>
+                                <p class="gig-venue card-text">
+                                    <a href="/venues/<%=gig.venueId%>">
+                                        <%=`${gig.Venue ? gig.Venue.name : ''}`%>
+                                    </a>
+                                </p>
+                                <p>
+                                    <form action="/tickets" method="POST">
+                                        <div class="form-group">
+                                            <input type="hidden" value="<%=gig.id%>" name="gigId" class="form-control">
+                                            <input type="submit" role="button" class="btn btn-info" value="Buy ticket">
+                                        </div>
+                                    </form>
+                                    <%if(currentUser && currentUser.isAdmin) {%>
+                                        <a href="/gigs/<%=gig.id%>/edit" role="button" class="btn btn-success">Edit</a>
+                                        <a href="/gigs/<%=gig.id%>/delete" role="button" class="btn btn-danger">Delete</a>
+                                    <%}%>
+                                </p>
                             </div>
                         </div>
                             </div>
